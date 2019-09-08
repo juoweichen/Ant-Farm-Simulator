@@ -41,8 +41,7 @@ The ant farm is defined by the following links:
 ```
 
 Which corresponds to the following representation:
-![image of farm]
-(https://github.com/pootitan/lemin/blob/master/example_farm.png)
+![image of farm](https://github.com/pootitan/lemin/blob/master/example_farm.png)
 
 For more example map, please check out the map under 'farm' directory.
 
