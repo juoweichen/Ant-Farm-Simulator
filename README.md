@@ -2,6 +2,8 @@
 Your ant colony must move from on room to another. How do you do it in the shortest time possible? This project will get you acquainted with graph traversal algorithms: your program will have to intelligently select paths and precise movements used by the ants.
 
 ## Project Objectives
+The goal of this project is to find the quickest way to get n ants across the farm. Quickest way means the solution with the least number of lines, respecting the output format requested below.<br/>
+
 The program will receive the data describing the ant farm from the standard output
 in the following format:
 ```
@@ -14,7 +16,7 @@ The ant farm is defined by the following links:
 ```
 5               <= 5 ants from start room need to walk to end room
 ##start
-1 23 3          <= Start room 1
+1 23 3          <= Start room
 2 16 7          <= The rooms, which are defined by: name coord_x coord_y
 #comment        <= All of it is broken by comments, which start with #
 3 16 3
@@ -23,7 +25,7 @@ The ant farm is defined by the following links:
 6 1 5
 7 4 8
 ##end
-0 9 5
+0 9 5            <= End room
 0-4              <= The links, which are defined by: name1-name2
 0-6
 1-3
@@ -43,7 +45,17 @@ The ant farm is defined by the following links:
 Which corresponds to the following representation:
 ![image of farm](https://github.com/pootitan/lemin/blob/master/example_farm.png)
 
-For more example map, please check out the map under 'farm' directory.
+Notes: The rooms’ names won’t necessarily be numbers, and they won’t necessarily be in the right and continuous order. But most importantly, a room will never start with the character L nor the character # <br/>
+
+If there isn’t enough data to process normally you must display ERROR<br/>
+
+For more example map, please check out the map under 'farm' directory.<br/>
+
+## Traversal rules
+1. All ants start from 'Start' room, distination is 'End' room
+2. Each room can only contain one ant at a time. (except at ##start and ##end which can contain as many ants as necessary.)
+3. Only display the ants that moved.
+4. At each turn you can move each ant only once and through a tube (the room at the receiving end must be empty).
 
 ## Getting Started
 The first step is to create exectuable file by Makefile.
@@ -51,11 +63,15 @@ The first step is to create exectuable file by Makefile.
 make
 ```
 
-Run the executable file with ants_farm map file input, several map files include error tests are locate under farms directory.
+Run the executable file with ants_farm map file input, several map files include error tests are locate under 'farms' directory.
 ```
 ./lem-in < farms/subject-1.map
 ```
 
+Alternatively, there's a quick_run.sh to run all the farm. it's also ganna generate some huge map provided by 42 correction sheet.
+```
+sh quick_run.sh
+```
 
 ## Result diplay
 You must to display your results on the standard output in the following format:
@@ -68,7 +84,7 @@ Lx-y Lz-w Lr-o ...      <= ants walk through result by turn
 x, z, r represents the ants’ numbers (going from 1 to number_of_ants) and y,
 w, o represents the rooms’ names.<br/>
 
-So the result of subject-1.map should looks like follow, I put <= for explaination:
+So the result of subject-1.map should looks like follow
 ```
 5                           
 ##start             
@@ -102,5 +118,6 @@ L2-0 L3-0 L4-6 L5-4
 L4-0 L5-0 
 turn: 5
 ```
+In result, it tooks 5 turns for 5 ants to walk from start to end.
 
 ## Algorithm
