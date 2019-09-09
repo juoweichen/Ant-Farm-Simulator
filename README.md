@@ -126,10 +126,10 @@ turn: 5
 In result, it tooks 5 turns for 5 ants to walk from start to end.
 
 # Algorithm
-The algorithm would be using Breath First Search(BFS) to looking for shortest possible path in graph theory. a graph is an abstract data type which consist by nodes and edges. Nodes have been adjenct with other nodes by egdes, same as the farm here.
+The algorithm would be using [Breath First Search(BFS)](https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/) to looking for shortest possible path in graph theory. a graph is an abstract data type which consist by nodes and edges. Nodes have been adjenct with other nodes by egdes, same as the farm here.
 
 ## Storing map to graph
-The farm would be stored as a graph in program before starting the algorithm. I store the graph by using dictionary. Dictionary is form by key and value pair, room's name has been store as a key in string type, and I create a structure call t_room to store the attribute for each room. The struct looks like follow:
+The farm would be stored as a graph in program before starting the algorithm. I store the graph by using dictionary. Dictionary is form by key and value pair, room's name has been store as a key in string type, and I create a structure call t_room to store the attribute for each room. The struct defined as follow:
 ```
 typedef	struct	s_room
 {
@@ -141,7 +141,7 @@ typedef	struct	s_room
 	int			is_occupy;
 }				t_room;
 ```
-adlist means adjacency list, it the one of the major way to represent the graph in program. For more informations about adjacency list check out this [GeeksforGeeks link](https://www.geeksforgeeks.org/graph-and-its-representations/)<br/>
+'adlist' means adjacency list, it the one of the major way to represent the graph in program. For more informations about adjacency list check out this [GeeksforGeeks link](https://www.geeksforgeeks.org/graph-and-its-representations/).<br/>
 
 Dictionary illustration:
 ```
