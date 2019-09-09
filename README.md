@@ -133,13 +133,13 @@ The farm would be stored as a graph in program before starting the algorithm. I 
 ```
 typedef	struct	s_room
 {
-	char		*name;
-	int			x;
-	int			y;
-	t_list		*adlist;
-	int			ad_num;
-	int			is_occupy;
-}				t_room;
+	char        *name;
+	int         x;
+	int         y;
+	t_list      *adlist;
+	int         ad_num;
+	int         is_occupy;
+}               t_room;
 ```
 'adlist' means adjacency list, it the one of the major way to represent the graph in program. For more informations about adjacency list check out this [GeeksforGeeks link](https://www.geeksforgeeks.org/graph-and-its-representations/).<br/>
 
@@ -154,9 +154,7 @@ Dictionary illustration:
 ```
 
 ## Find the shortest path for each adjacent room with start room
-Because the travesal rules, the number of ants we can send at one turn has been limit by the number of adjacent room. For example, if start room adjacent with 5 ants, we can at most send 5 ants per turn. 
-
-After BFS, I found the shortest path is B in here:
+First, adopting BFS to find the shorest path. For instance, we found the shortest path is B in here:
 ```
         / [A] - [...] - ... \
         / [B] - [...] - ... \
@@ -182,13 +180,45 @@ Keep on searching till every adjacent room with start has it's path (or no possi
 ```
 After this process, we will have a rank of the path start from shortest to longest.
 ```
-// For instance:
     Name:   Distance:
 1.  [B]         5
-2.  [C]         7
+2.  [C]         6
 3.  [A]         11
 4.  [E]         13
 5.  [D]         14
 ```
 
 ## Distributing ants
+In order to reduce the traffic jams, we need to distribute reasonable ants flow to each path. The process is, we place an ant to the current shortest path, then we increase the distance of that path by one.
+```
+    Name:   Distance:       flow:
+1.  [B]         6 (5 + 1)     1
+2.  [C]         6
+3.  [A]         11
+4.  [E]         13
+5.  [D]         14
+
+    Name:   Distance:       flow:
+1.  [B]         7 (6 + 1)     2
+2.  [C]         6
+3.  [A]         11
+4.  [E]         13
+5.  [D]         14
+
+    Name:   Distance:       flow:
+1.  [B]         7             2
+2.  [C]         7 (6 + 1)     1
+3.  [A]         11
+4.  [E]         13
+5.  [D]         14
+
+// Keep on distributing till all ants have it's path...
+
+```
+## Sending the ants
+Last, we sending the ants according to our optimis distribution.<br/>
+Then...We got it!!!
+**Note:** There's other optimum solution better then this, but this one is easiest for me and it can pass all map from generator.
+
+Thanks you for bringing those ants home!
+![image of happy ants](https://image.shutterstock.com/image-vector/vector-illustrationmant-strawberry-isolated-on-260nw-735913561.jpg)
