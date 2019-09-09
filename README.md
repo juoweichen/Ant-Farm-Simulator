@@ -78,7 +78,7 @@ Or run quick_run_generator.sh, it's ganna generate some huge map provided by 42 
 sh quick_run_generator.sh
 ```
 
-## Result diplay
+## Result display
 You must to display your results on the standard output in the following format:
 ```
 number_of_ants          <= Simply display the farm format
