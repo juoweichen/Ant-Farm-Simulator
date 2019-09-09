@@ -212,13 +212,13 @@ In order to reduce the traffic jams, we need to distribute reasonable ants flow 
 4.  [E]         13
 5.  [D]         14
 
-// Keep on distributing till all ants have it's path...
+// Keep on distributing till all ants has it's path...
 
 ```
 ## Sending the ants
 Last, we sending the ants according to our optimis distribution.<br/>
-Then...We got it!!!
-**Note:** There's other optimum solution better then this, but this one is easiest for me and it can pass all map from generator.
+Then...We got it!!!<br/>
+**Note:** There's other optimum solution better then this, but this one is easiest for me and it can pass all map from generator. <br/>
 
-Thanks you for bringing those ants home!
+Thanks you for bringing those ants home!<br/>
 ![image of happy ants](https://image.shutterstock.com/image-vector/vector-illustrationmant-strawberry-isolated-on-260nw-735913561.jpg)
