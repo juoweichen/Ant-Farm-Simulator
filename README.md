@@ -45,14 +45,14 @@ The ant farm is defined by the following links:
 Which corresponds to the following representation:
 ![image of farm](https://github.com/pootitan/lemin/blob/master/example_farm.png)
 
-Notes: The rooms’ names won’t necessarily be numbers, and they won’t necessarily be in the right and continuous order. But most importantly, a room will never start with the character L nor the character # <br/>
+**Notes:** The rooms’ names won’t necessarily be numbers, and they won’t necessarily be in the right and continuous order. But most importantly, a room will never start with the character L nor the character # <br/>
 
 If there isn’t enough data to process normally you must display ERROR<br/>
 
 For more example map, please check out the map under 'farm' directory.<br/>
 
 ## Traversal rules
-1. All ants start from 'Start' room, distination is 'End' room
+1. All ants must start from 'Start' room, their distination is 'End' room
 2. Each room can only contain one ant at a time. (except at ##start and ##end which can contain as many ants as necessary.)
 3. Only display the ants that moved.
 4. At each turn you can move each ant only once and through a tube (the room at the receiving end must be empty).
@@ -68,9 +68,14 @@ Run the executable file with ants_farm map file input, several map files include
 ./lem-in < farms/subject-1.map
 ```
 
-Alternatively, there's a quick_run.sh to run all the farm. it's also ganna generate some huge map provided by 42 correction sheet.
+Alternatively, there's a quick_run_subjects.sh to run all the farm. 
 ```
-sh quick_run.sh
+sh quick_run_subjects.sh
+```
+
+Or run quick_run_generator.sh, it's ganna generate some huge map provided by 42 correction sheet.
+```
+sh quick_run_generator.sh
 ```
 
 ## Result diplay
@@ -120,4 +125,70 @@ turn: 5
 ```
 In result, it tooks 5 turns for 5 ants to walk from start to end.
 
-## Algorithm
+# Algorithm
+The algorithm would be using Breath First Search(BFS) to looking for shortest possible path in graph theory. a graph is an abstract data type which consist by nodes and edges. Nodes have been adjenct with other nodes by egdes, same as the farm here.
+
+## Storing map to graph
+The farm would be stored as a graph in program before starting the algorithm. I store the graph by using dictionary. Dictionary is form by key and value pair, room's name has been store as a key in string type, and I create a structure call t_room to store the attribute for each room. The struct looks like follow:
+```
+typedef	struct	s_room
+{
+	char		*name;
+	int			x;
+	int			y;
+	t_list		*adlist;
+	int			ad_num;
+	int			is_occupy;
+}				t_room;
+```
+adlist means adjacency list, it the one of the major way to represent the graph in program. For more informations about adjacency list check out this [GeeksforGeeks link](https://www.geeksforgeeks.org/graph-and-its-representations/)<br/>
+
+Dictionary illustration:
+```
+    Key(Room name)      Value(Room's attribute)
+    --------------      -----------------------
+        2               room 2's attribute: name, coordinate, adjacent rooms, etc.
+        5               room 5's attribute
+    otherRoom               ...
+    SomeOtherRoom           ...
+```
+
+## Find the shortest path for each adjacent room with start room
+Because the travesal rules, the number of ants we can send at one turn has been limit by the number of adjacent room. For example, if start room adjacent with 5 ants, we can at most send 5 ants per turn. 
+
+After BFS, I found the shortest path is B in here:
+```
+        / [A] - [...] - ... \
+        / [B] - [...] - ... \
+[Start] - [C] - [...] - ... - [End] 
+        \ [D] - [...] - ... /
+        \ [E] - [...] - ... /
+```
+I will block the shortest path (start from B in here), and run the BFS to search on next shortest path.
+```
+        / [A] - [...] - ... \
+        / [X] - [X] - .[X]. \
+[Start] - [C] - [...] - ... - [End] 
+        \ [D] - [...] - ... /
+        \ [E] - [...] - ... /
+```
+Keep on searching till every adjacent room with start has it's path (or no possible path)
+```
+        / [X] - [X] - .[X]. \
+        / [X] - [X] - .[X]. \
+[Start] - [X] - [X] - .[X]. - [End] 
+        \ [X] - [X] - .[X]. /
+        \ [X] - [X] - .[X]. /
+```
+After this process, we will have a rank of the path start from shortest to longest.
+```
+// For instance:
+    Name:   Distance:
+1.  [B]         5
+2.  [C]         7
+3.  [A]         11
+4.  [E]         13
+5.  [D]         14
+```
+
+## Distributing ants
